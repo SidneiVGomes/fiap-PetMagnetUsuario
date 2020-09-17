@@ -1,9 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
-import { Text, View } from 'react-native';
 import { appStyles } from '../assets/css/AppStyle';
 import Home from '../views/Home';
 import Publicacoes from '../views/Publicacoes';
