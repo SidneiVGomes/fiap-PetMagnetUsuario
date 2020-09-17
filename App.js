@@ -1,7 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Text, View } from 'react-native';
-import { appStyles } from './assets/css/AppStyle';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AreaPrincipal from './views/AreaPrincipal';
