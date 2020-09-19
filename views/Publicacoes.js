@@ -3,184 +3,13 @@ import { StatusBar } from 'expo-status-bar';
 import { Text, View, SafeAreaView, FlatList, StyleSheet, List, ListItem } from 'react-native';
 import { appStyles } from '../assets/css/AppStyle';
 import { ActivityIndicator } from 'react-native';
-import { Button, Icon } from 'react-native-elements';
+import { Button } from 'react-native-elements';
+import { PublicacoesApi } from '../componentes/PublicacoesApi';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import IconFeather from 'react-native-vector-icons/Feather';
 
 export default function Publicacoes() {
-  const [isLoading, setLoading] = useState(true);
-  const [lstAnuncios, setData] = useState([]);
-
-  useEffect(() => {
-    fetch('https://petmagnet-api.herokuapp.com/API/publicacoes/proximas')
-      .then(response => response.json())
-      .then(lstAnuncios => setData(lstAnuncios))
-      .catch((error) => setLoading(false));
-  }, []);
-
-
-
-  const jsonAnuncios = [
-    {
-      "idPublicacao": 1,
-      "dtPublicacao": "2020-09-14T11:59:24.165+00:00",
-      "dtEncerramento": "2020-10-14T11:59:24.165+00:00",
-      "estabelecimento": {
-        "cnpj": "46781973000106",
-        "nome": "PetShop do Bairro LTDA",
-        "complEndereco": "",
-        "endereco": {
-          "logradouro": "Rua Abaetetuba",
-          "numero": "123",
-          "bairro": "Jardim Califórnia",
-          "cidade": "Barueri",
-          "pais": "BR",
-          "cep": "06409-100",
-          "latitude": "-23,4935611",
-          "longitude": "-46,8959407",
-          "uf": "SP"
-        },
-        "idEstabelecimento": 1
-      },
-      "anuncios": [
-        {
-          "idAnuncio": 1,
-          "idEstabelecimento": 1,
-          "idColaborador": 1,
-          "titulo": "Título do anuncio",
-          "descricao": "descricao do anuncio",
-          "produtos": [
-            {
-              "idProduto": 1,
-              "descricao": "descricao do produto",
-              "preco": 99,
-              "imagem": "imagem anuncio"
-            }
-          ]
-        }
-      ],
-      "links": []
-    },
-    {
-      "idPublicacao": 6,
-      "dtPublicacao": "2020-09-14T21:43:48.880+00:00",
-      "dtEncerramento": "2020-09-20T21:43:48.880+00:00",
-      "estabelecimento": {
-        "cnpj": "46781973000106",
-        "nome": "PetShop do Bairro LTDA",
-        "complEndereco": "",
-        "endereco": {
-          "logradouro": "Rua Abaetetuba",
-          "numero": "123",
-          "bairro": "Jardim Califórnia",
-          "cidade": "Barueri",
-          "pais": "BR",
-          "cep": "06409-100",
-          "latitude": "-23,4935611",
-          "longitude": "-46,8959407",
-          "uf": "SP"
-        },
-        "idEstabelecimento": 1
-      },
-      "anuncios": [
-        {
-          "idAnuncio": 2,
-          "idEstabelecimento": 1,
-          "idColaborador": 1,
-          "titulo": "Toda a Loja com 30% OFF",
-          "descricao": "Vem conferir antes que acabe!!!",
-          "produtos": [
-            {
-              "idProduto": 2,
-              "descricao": "Petiscos",
-              "preco": 15.99,
-              "imagem": "<<<IMAGEM>>>"
-            },
-            {
-              "idProduto": 3,
-              "descricao": "Petiscos",
-              "preco": 15.99,
-              "imagem": "<<<IMAGEM>>>"
-            },
-            {
-              "idProduto": 4,
-              "descricao": "Petiscos",
-              "preco": 15.99,
-              "imagem": "<<<IMAGEM>>>"
-            }
-          ]
-        }
-      ],
-      "links": []
-    }
-  ]
-
-  // CARD - HEADER
-  function CartaoAnuncioHeader(props) {
-
-    // console.log('=======================================');
-    // console.log(props); 
-    // console.log('7======================================');   
-
-    return (
-      <View style={{ width: '100%', height: 50, backgroundColor: 'powderblue' }}>
-        <Text>{props.estabelecimento.nome}</Text>
-      </View>
-    )
-  }
-
-  // CARD - TÍTULO
-  function CartaoAnuncioTitulo(props) {
-
-    // console.log('=======================================');
-    // console.log(props); 
-    // console.log('11======================================');   
-
-    return (
-      <View style={{ width: '100%', height: 20, backgroundColor: 'red' }}>
-        <Text>{props.anuncios.titulo}</Text>
-      </View>
-    )
-  }
-
-  // CARD - PRODUTOS
-  function CartaoAnuncioProdutos(props) {
-
-    var produtos = props.produtos.map(function (item) {
-      return {
-        id: item.idProduto,
-        descricao: item.descricao,
-        valor: item.valor,
-        imagem: item.imagem
-      };
-    });
-
-    // console.log('=======================================');
-    // console.log(props);
-    // console.log('1======================================');
-
-    return (
-      <View style={
-        {
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          height: 150,
-          backgroundColor: 'skyblue',
-          
-        }}>
-        <FlatList
-          horizontal
-          data={produtos}
-          renderItem={(produto) => {
-            return (
-              <View style={{ marginLeft: 6, width: 123, height: '100%', backgroundColor: 'blue' }}>
-                <Text>{produto.item.descricao}</Text>
-              </View>
-            )
-          }}>
-        </FlatList>
-      </View>
-    )
-  }
+  const jsonAnuncios = PublicacoesApi();
 
   // CARD
   //
@@ -204,7 +33,7 @@ export default function Publicacoes() {
     });
 
     return (
-      <View style={{Flex: 1, paddingBottom: 10, paddingTop: 1}}>
+      <View style={{ paddingBottom: 10, paddingTop: 1, backgroundColor: '#C5C5C5' }}>
         <FlatList
           data={anuncios}
           renderItem={(anuncio) => {
@@ -213,10 +42,129 @@ export default function Publicacoes() {
                 <CartaoAnuncioHeader estabelecimento={props.publicacao.estabelecimento} />
                 <CartaoAnuncioTitulo anuncios={anuncio.item} />
                 <CartaoAnuncioProdutos produtos={anuncio.item.produtos} />
+                <CartaoAnuncioDescricao anuncios={anuncio.item} />
+                <CartaoAnuncioMidiasSociais />
               </View>
             )
           }}>
         </FlatList>
+      </View>
+    )
+  }
+
+  // CARD - HEADER
+  function CartaoAnuncioHeader(props) {
+
+    let end = props.estabelecimento.endereco;
+    let compl_end = props.estabelecimento.complEndereco;
+
+    if (compl_end != '') {
+      compl_end = ' / ' + compl_end;
+    }
+
+    let end_completo_1 = end.logradouro + ', ' + end.numero + compl_end;
+    let end_completo_2 = end.bairro + ' - ' + end.cidade + ' - ' + end.uf;
+    let horario = '';
+
+    // console.log('=======================================');
+    // console.log(props);
+    // console.log('7======================================');
+
+    return (
+      <View style={{ flexDirection: 'row', backgroundColor: '#FFFFFE', borderBottomColor: '#E1E0DF', borderBottomWidth: 1 }}>
+        <View style={{ width: 78, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>IMG</Text>
+        </View>
+        <View style={{ width: '100%', height: 70, justifyContent: 'center' }}>
+          <Text style={{ fontSize: 14 }}>{end_completo_1}</Text>
+          <Text style={{ fontSize: 14 }}>{end_completo_2}</Text>
+          {/* <Text style={{ fontSize: 14 }}>{horario}</Text> */}
+        </View>
+      </View>
+    )
+  }
+
+  // CARD - TÍTULO
+  function CartaoAnuncioTitulo(props) {
+
+    // console.log('=======================================');
+    // console.log(props); 
+    // console.log('11======================================');   
+
+    return (
+      <View style={{ width: '100%', height: 30, backgroundColor: '#FFFFFE', alignItems: 'center' }}>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#3949AB' }}>{props.anuncios.titulo}</Text>
+      </View>
+    )
+  }
+
+  // CARD - PRODUTOS
+  function CartaoAnuncioProdutos(props) {
+
+    var produtos = props.produtos.map(function (item) {
+      return {
+        id: item.idProduto,
+        descricao: item.descricao,
+        preco: item.preco,
+        imagem: item.imagem
+      };
+    });
+
+    // console.log('=======================================');
+    // console.log(props);
+    // console.log('1======================================');
+
+    return (
+      <View style={{ height: 220, backgroundColor: '#FFFFFE', alignItems: 'center', justifyContent: 'space-around', paddingBottom: 5, borderBottomColor: '#E1E0DF', borderBottomWidth: 1 }}>
+        <FlatList
+          horizontal
+          data={produtos}
+          renderItem={(produto) => {
+            return (
+              <View style={{ flexDirection: 'column', width: 127, height: '100%', backgroundColor: '#FFFFFE', marginHorizontal: 1, borderColor: '#000', borderWidth: 1 }}>
+                <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
+                  <Text style={{ height: 20 }}>I M A G E M</Text>
+                </View>
+                <View style={{ flexGrow: 0, alignItems: 'center', height: 20 }}>
+                  <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#3949AB' }}>{produto.item.preco}</Text>
+                </View>
+              </View>
+            )
+          }}>
+        </FlatList>
+      </View>
+    )
+  }
+
+  // CARD - DESCRIÇÃO
+  function CartaoAnuncioDescricao(props) {
+
+    // console.log('=======================================');
+    // console.log(props); 
+    // console.log('11======================================');   
+
+    return (
+      <View style={{ width: '100%', height: 62, alignItems: 'center', justifyContent: 'center', backgroundColor: '#E6F5FF', borderBottomColor: '#E1E0DF', borderBottomWidth: 1 }}>
+        <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{props.anuncios.descricao}</Text>
+      </View>
+    )
+  }
+
+  // CARD - MÍDIAS SOCIAIS
+  function CartaoAnuncioMidiasSociais(props) {
+
+    // console.log('=======================================');
+    // console.log(props); 
+    // console.log('11======================================');   
+
+    return (
+      <View style={{ flexDirection: 'row', width: '100%', height: 60, backgroundColor: '#F3F2F0', borderBottomColor: '#DBDBDB', borderBottomWidth: 1 }}>
+        <View style={{ width: 70, height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+          <Icon name="whatsapp" size={22} color="green" />
+        </View>
+        <View style={{ width: 50, height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+          <Icon name="shopping-cart" size={22} color="#E98E1E" />
+        </View>
       </View>
     )
   }
