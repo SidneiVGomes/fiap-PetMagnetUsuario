@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import IconFeather from 'react-native-vector-icons/Feather';
 
@@ -17,7 +17,7 @@ function AnuncioCard(props) {
 
       console.log('============== CARTAO ANUNCIO CARD ===============');
       console.log(props);
-   
+
 
       // Obtém todos os Anúncios atribuídos à Publicação recebida.
       var anuncios = props.publicacao.anuncios.map(function (item) {
@@ -63,16 +63,19 @@ function AnuncioCard(props) {
       let end_completo_2 = end.bairro + ' - ' + end.cidade + ' - ' + end.uf;
       let horario = '';
 
+      let {estabelecimento} = props;
+
       // console.log('=======================================');
       // console.log(props);
       // console.log('7======================================');
 
       return (
          <View style={{ flexDirection: 'row', backgroundColor: '#FFFFFE', borderBottomColor: '#E1E0DF', borderBottomWidth: 1 }}>
-            <View style={{ width: 78, alignItems: 'center', justifyContent: 'center' }}>
+            {/* <View style={{ width: 78, alignItems: 'center', justifyContent: 'center' }}>
                <Text>IMG</Text>
-            </View>
-            <View style={{ width: '100%', height: 70, justifyContent: 'center' }}>
+            </View> */}
+            <View style={{ width: '100%', height: 70, alignItems: 'center', justifyContent: 'center' }}>
+               <Text style={{ fontSize: 14, fontWeight: 'bold' }}>{estabelecimento.nome}</Text>
                <Text style={{ fontSize: 14 }}>{end_completo_1}</Text>
                <Text style={{ fontSize: 14 }}>{end_completo_2}</Text>
                {/* <Text style={{ fontSize: 14 }}>{horario}</Text> */}
@@ -103,7 +106,8 @@ function AnuncioCard(props) {
             idProduto: item.idProduto,
             descricao: item.descricao,
             preco: item.preco,
-            imagem: item.imagem
+            imagem: item.imagem,
+            imagem_byte: item.imagem_byte
          };
       });
 
@@ -121,7 +125,7 @@ function AnuncioCard(props) {
                   return (
                      <View style={{ flexDirection: 'column', width: 127, height: '100%', backgroundColor: '#FFFFFE', marginHorizontal: 1 }}>
                         <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
-                           <Text style={{ height: 20 }}>I M A G E M</Text>
+                           <Image source={{ uri: `data:image/png;base64,${produto.item.imagem_byte}` }} style={{ width: 160, height: 160 }} />
                         </View>
                         <View style={{ flexGrow: 0, alignItems: 'center', height: 20 }}>
                            <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#3949AB' }}>{produto.item.preco}</Text>
@@ -167,9 +171,9 @@ function AnuncioCard(props) {
       )
    }
 
-   return(
+   return (
       <CartaoAnuncio publicacao={props.publicacao} />
    )
 }
 
-export {AnuncioCard};
+export { AnuncioCard };
