@@ -1,8 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Text, View, SafeAreaView, FlatList } from 'react-native';
-import { appStyles } from '../assets/css/AppStyle';
-import { Card, Button, Icon } from 'react-native-elements';
+import { Text, View } from 'react-native';
+import { Card, Button } from 'react-native-elements';
 
 export default function Preferencias() {
   return (

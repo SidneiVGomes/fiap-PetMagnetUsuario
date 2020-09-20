@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import AreaPrincipal from './views/AreaPrincipal';
-import Home from './views/Home';
-import Publicacoes from './views/Publicacoes';
-import Preferencias from './views/Preferencias';
+import AreaPrincipal from './scr/views/AreaPrincipal';
+import Home from './scr/views/Home';
+import Publicacoes from './scr/views/Publicacoes';
+import Preferencias from './scr/views/Preferencias';
 
 export default function App() {
   const Stack = createStackNavigator();

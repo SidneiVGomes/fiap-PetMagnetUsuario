@@ -1,10 +1,10 @@
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
-import { appStyles } from '../assets/css/AppStyle';
-import Home from '../views/Home';
-import Publicacoes from '../views/Publicacoes';
-import Preferencias from '../views/Preferencias';
+import { appStyles } from '../../assets/css/AppStyle';
+import Home from './Home';
+import Publicacoes from './Publicacoes';
+import Preferencias from './Preferencias';
 
 export default function AreaPrincipal() {
   const Tab = createMaterialBottomTabNavigator();
