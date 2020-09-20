@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Text, View, SafeAreaView, FlatList, StyleSheet, List, ListItem } from 'react-native';
+import { Text, View, FlatList } from 'react-native';
 import { appStyles } from '../assets/css/AppStyle';
-import { ActivityIndicator } from 'react-native';
-import { Button } from 'react-native-elements';
-import { PublicacoesApi } from '../componentes/PublicacoesApi';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import IconFeather from 'react-native-vector-icons/Feather';
 
-export default function Publicacoes() {
-  const jsonAnuncios = PublicacoesApi();
+export default function CardAnuncio(props) {
+
+  const { jsonAnuncios } = props;
+
+  console.log('============= C A R D ===============');
 
   // CARD
   //
@@ -21,7 +20,6 @@ export default function Publicacoes() {
   // ------Produtos
   // --------Produto
   function CartaoAnuncio(props) {
-
     // Obtém todos os Anúncios atribuídos à Publicação recebida.
     var anuncios = props.publicacao.anuncios.map(function (item) {
       return {
@@ -92,7 +90,7 @@ export default function Publicacoes() {
     // console.log('11======================================');   
 
     return (
-      <View style={{ width: '100%', height: 30, backgroundColor: '#FFFFFE', alignItems: 'center' }}>
+      <View style={{ width: '100%', height: 40, backgroundColor: 'yellow', alignItems: 'center', justifyContent: 'center' }}>
         <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#3949AB' }}>{props.anuncios.titulo}</Text>
       </View>
     )
@@ -103,7 +101,7 @@ export default function Publicacoes() {
 
     var produtos = props.produtos.map(function (item) {
       return {
-        id: item.idProduto,
+        idProduto: item.idProduto,
         descricao: item.descricao,
         preco: item.preco,
         imagem: item.imagem
@@ -119,9 +117,10 @@ export default function Publicacoes() {
         <FlatList
           horizontal
           data={produtos}
+          keyExtractor = {(item) => item.idProduto.toString()}
           renderItem={(produto) => {
             return (
-              <View style={{ flexDirection: 'column', width: 127, height: '100%', backgroundColor: '#FFFFFE', marginHorizontal: 1, borderColor: '#000', borderWidth: 1 }}>
+              <View style={{ flexDirection: 'column', width: 127, height: '100%', backgroundColor: '#FFFFFE', marginHorizontal: 1 }}>
                 <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
                   <Text style={{ height: 20 }}>I M A G E M</Text>
                 </View>
@@ -171,10 +170,7 @@ export default function Publicacoes() {
 
   return (
     <View >
-      <FlatList
-        data={jsonAnuncios}
-        renderItem={(publicacao) => <CartaoAnuncio publicacao={publicacao.item} />} >
-      </FlatList>
+      <CartaoAnuncio publicacao={jsonAnuncios} />
     </View>
   );
 }
