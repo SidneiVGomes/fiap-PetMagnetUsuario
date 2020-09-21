@@ -28,7 +28,7 @@ export default function App() {
             headerTitleAlign:'center'
           }}
         />
-        <Stack.Screen name="Home" component={Home} />
+        {/* <Stack.Screen name="Home" component={Home} /> */}
         <Stack.Screen name="Publicações" component={Publicacoes} />
         <Stack.Screen name="Preferências" component={Preferencias} />
       </Stack.Navigator>

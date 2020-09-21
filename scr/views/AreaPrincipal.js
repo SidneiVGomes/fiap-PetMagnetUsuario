@@ -15,7 +15,7 @@ export default function AreaPrincipal() {
       inactiveColor='#594A46'
       barStyle={appStyles.bar__principal}
       >
-      <Tab.Screen name="Home"
+      {/* <Tab.Screen name="Home"
         component={Home}
         options={{
           tabBarIcon: ({ color, focused }) => (
@@ -23,7 +23,7 @@ export default function AreaPrincipal() {
           )
           ,
         }} 
-      />
+      /> */}
       <Tab.Screen name="Publicações"
         component={Publicacoes}
         options={{

@@ -128,7 +128,7 @@ function AnuncioCard(props) {
                            <Image source={{ uri: `data:image/png;base64,${produto.item.imagem_byte}` }} style={{ width: 160, height: 160 }} />
                         </View>
                         <View style={{ flexGrow: 0, alignItems: 'center', height: 20 }}>
-                           <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#3949AB' }}>{produto.item.preco}</Text>
+                           <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#3949AB' }}>R$ {produto.item.preco}</Text>
                         </View>
                      </View>
                   )
