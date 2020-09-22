@@ -4,8 +4,8 @@ import { ApiGET } from '../../api/ApiGET';
 import {AnuncioCard} from '../components/AnuncioCard';
 
 export default function Publicacoes() {
-  const jsonAnuncios = ApiGET({endPoint: 'publicacoes/proximas'});
-
+  const jsonAnuncios = ApiGET({endPoint: 'publicacoes/proximas?idEndereco=15&alcanceKM=1006'});
+  
   console.log('============= $$$ PUBLICAÇÕES $$$ ===============');
   
   return (
