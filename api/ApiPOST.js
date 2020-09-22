@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
 import Api from './Api';
 
-function ApiGET({endPoint}) {
+function ApiPOST({endPoint}) {
+
   const [dados, setDados] = useState([]);
   
   useEffect(() => {
-    console.log('====================== USE EFFECT ApiGET ==========================')
+    console.log('====================== USE EFFECT ApiPOST ==========================')
     console.log(endPoint);
 
-    getFromAPI(endPoint);
+    postToAPI(endPoint);
   }, [])
 
-  function getFromAPI(endPoint){
+  function postToAPI(endPoint){
     console.log(endPoint);
     
-    Api.get(endPoint)
+    Api.post(endPoint)
       .then(function(response){
         console.log(response.data);
         setDados(response.data);
@@ -27,4 +28,4 @@ function ApiGET({endPoint}) {
   return (dados);
 }
 
-export { ApiGET };
+export { ApiPOST };
