@@ -6,31 +6,34 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 export default function Publicacoes() {
 
-  // useEffect(() => {
-  //   let userData = getDadosUsuario();
-
-  //   console.log('================ USUÁRIO LOGADO ================');
-  //   // console.log(JSON.parse(userData));
-
-  // }, [])
-
-  const [userRegistro, setUserRegistro] = useState(null);
+  const [userId, setUserId] = useState(0);
+  const [userAlcanceKM, setUserAlcanceKM] = useState(0);
 
   async function getObterPublicacoesProximas() {
 
     const userRegistro = await AsyncStorage.getItem('userData')
-      .then(() => {
-        console.log('============= REGISTRO ==============');
-        console.log(userRegistro);
+      .then((userRegistro) => {
+        // console.log('============= REGISTRO ==============');
+        // console.log(userRegistro);
+
+        let jsonUsuario = JSON.parse(userRegistro);
+
+        setUserId(jsonUsuario.idUsuario);
+        setUserAlcanceKM(jsonUsuario.distanciaAnuncio);
+
+        // console.log('============= ALCANCE ==============');
+        // console.log(userAlcanceKM);
       });
   }
 
   getObterPublicacoesProximas();
 
-  jsonAnuncios = ApiGET({ endPoint: 'publicacoes/proximas?idUsuario=0&alcanceKM=5' });
+  jsonAnuncios = ApiGET({ endPoint: 'publicacoes/proximas?idUsuario=' + userId + '&alcanceKM=' + userAlcanceKM });
 
   console.log('============= $$$ PUBLICAÇÕES $$$ ===============');
-  console.log(jsonAnuncios)
+  console.log('publicacoes/proximas?idUsuario=' + userId + '&alcanceKM=' + userAlcanceKM);
+  // console.log(jsonAnuncios)
+
 
   return (
     <View >

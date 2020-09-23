@@ -41,7 +41,10 @@ export default function Preferencias() {
 
       let jsonUsuario = await response.data;
 
-      if (json == 'error') {
+      console.log('====================== JSON USUÁRIO =========================')  
+      console.log(jsonUsuario);
+
+      if (jsonUsuario == 'error') {
         console.log(error);
       } else {
         await AsyncStorage.setItem('userData', JSON.stringify(jsonUsuario));
