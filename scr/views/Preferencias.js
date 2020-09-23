@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, TextInput, Alert, KeyboardAvoidingView } from 'react-native';
 import { Button } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -6,10 +6,34 @@ import Api from '../../api/Api';
 
 export default function Preferencias() {
 
-  const [userEmail, setEmail] = useState(null);
-  const [userCep, setCEP] = useState(null);
-  const [userAlcance, setAlcance] = useState(0);
-  
+  const [userEmail, setEmail] = useState("");
+  const [userCep, setCEP] = useState("");
+  const [userAlcance, setAlcance] = useState("");
+
+  useEffect(() => {
+    const obterUsuario = async () => {
+
+      // await AsyncStorage.clear();
+
+      let registroUser = await AsyncStorage.getItem('userData')
+        .then((registroUser) => {
+          let jsonUsuario = JSON.parse(registroUser);
+
+          if (jsonUsuario != null) {
+            setEmail(jsonUsuario.email);
+            setCEP(jsonUsuario.cep);
+            setAlcance(jsonUsuario.distanciaAnuncio.toString());
+          }
+
+          console.log('X================== REGISTRO =======================')
+          console.log(jsonUsuario);
+        });
+    };
+
+    obterUsuario();
+  }, [])
+
+
   function enviarForm() {
 
     const registrarUserAPI = async () => {
@@ -17,10 +41,13 @@ export default function Preferencias() {
 
       let jsonUsuario = await response.data;
 
-      if (json == 'error') {
+      console.log('====================== JSON USUÁRIO =========================')  
+      console.log(jsonUsuario);
+
+      if (jsonUsuario == 'error') {
         console.log(error);
       } else {
-        await AsyncStorage.setItem('userRegistro', JSON.stringify(jsonUsuario));
+        await AsyncStorage.setItem('userData', JSON.stringify(jsonUsuario));
       }
     }
 
@@ -47,6 +74,7 @@ export default function Preferencias() {
             style={{ height: 40, backgroundColor: "#FFF", borderColor: 'gray', borderWidth: 1, textAlign: 'center', fontSize: 20 }}
             onChangeText={userEmail => setEmail(userEmail)}
             keyboardType='email-address'
+            value={userEmail}
           />
 
           <Text style={{ fontSize: 15, textAlign: 'center', marginTop: 20 }}>
@@ -58,6 +86,7 @@ export default function Preferencias() {
             onChangeText={userCep => setCEP(userCep)}
             keyboardType='number-pad'
             placeholder="99999-999"
+            value={userCep}
           />
 
           <Text style={{ fontSize: 15, textAlign: 'center', marginTop: 20 }}>
@@ -69,6 +98,7 @@ export default function Preferencias() {
             onChangeText={userAlcance => setAlcance(userAlcance)}
             keyboardType='number-pad'
             placeholder="KM"
+            value={userAlcance}
           />
 
         </View>
