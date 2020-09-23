@@ -41,13 +41,14 @@ export default function Preferencias() {
 
       let jsonUsuario = await response.data;
 
-      console.log('====================== JSON USUÁRIO =========================')  
+      console.log('====================== JSON USUÁRIO =========================')
       console.log(jsonUsuario);
 
       if (jsonUsuario == 'error') {
         console.log(error);
       } else {
         await AsyncStorage.setItem('userData', JSON.stringify(jsonUsuario));
+        Alert.alert('Obrigado!', 'Agora você passará a receber somente anúncios conforme sua informação!');
       }
     }
 
