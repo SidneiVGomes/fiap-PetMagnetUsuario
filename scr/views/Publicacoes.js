@@ -17,7 +17,8 @@ export default function Publicacoes() {
   const [userRegistro, setUserRegistro] = useState(null);
 
   async function getObterPublicacoesProximas() {
-    const userRegistro = await AsyncStorage.getItem('userRegistro')
+
+    const userRegistro = await AsyncStorage.getItem('userData')
       .then(() => {
         console.log('============= REGISTRO ==============');
         console.log(userRegistro);
@@ -26,7 +27,7 @@ export default function Publicacoes() {
 
   getObterPublicacoesProximas();
 
-  jsonAnuncios = ApiGET({ endPoint: 'publicacoes/proximas?idEndereco=0&alcanceKM=1006' });
+  jsonAnuncios = ApiGET({ endPoint: 'publicacoes/proximas?idUsuario=0&alcanceKM=5' });
 
   console.log('============= $$$ PUBLICAÇÕES $$$ ===============');
   console.log(jsonAnuncios)
