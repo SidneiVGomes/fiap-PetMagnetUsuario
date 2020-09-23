@@ -13,16 +13,11 @@ export default function Publicacoes() {
 
     const userRegistro = await AsyncStorage.getItem('userData')
       .then((userRegistro) => {
-        // console.log('============= REGISTRO ==============');
-        // console.log(userRegistro);
 
         let jsonUsuario = JSON.parse(userRegistro);
 
         setUserId(jsonUsuario.idUsuario);
         setUserAlcanceKM(jsonUsuario.distanciaAnuncio);
-
-        // console.log('============= ALCANCE ==============');
-        // console.log(userAlcanceKM);
       });
   }
 
